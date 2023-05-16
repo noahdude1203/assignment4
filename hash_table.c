@@ -40,8 +40,16 @@ int hash_function2(struct hash_table* hash_table, char* key) {
    * Currently this is the same as hash_function1, but your assignment is 
    * to modify it to create an improved hash function: 
    */
+  int hash = 0;
+  int prime = 31;  // A prime number for better distribution
+  int table_size = hash_table->size;
 
-  return ( (int) key[0] ) % hash_table->size; 
+  for (int i = 0; key[i] != '\0'; i++) {
+    hash = (hash * prime + key[i]) % table_size;
+    prime = 11 * prime;  // Find the next prime number
+  }
+
+  return hash;
 }
 
 struct hash_table* hash_table_create(int array_size) {
