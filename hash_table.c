@@ -21,8 +21,6 @@ struct hash_table {
   int size;
   int total;
 };
-
-
 /*
  * Returns: a hash code of an input string "key"
  * 
@@ -32,14 +30,11 @@ struct hash_table {
 int hash_function1(struct hash_table* hash_table, char* key) {
   return ( (int) key[0] ) % hash_table->size;
 }
-
-
 /*
  * Returns: a hash code of an input string "key"
  * 
  * input: the hash_table (to get the size) and a key
  */
-
 int hash_function2(struct hash_table* hash_table, char* key) {
   /*
    * Currently this is the same as hash_function1, but your assignment is 
@@ -190,8 +185,12 @@ int hash_table_collisions(struct hash_table* hash_table) {
    * as one collision, three elements would count as 2 collisions and so on. 
    */
   int num_col = 0;
-  
-  // code goes here: 
+
+  for (int i = 0; i < hash_table->size; i++){
+    if (hash_table->array[i] != NULL){
+      num_col += (sizeof(hash_table->array[i]) - 1);
+    }
+  }
 
   return num_col;
 }
