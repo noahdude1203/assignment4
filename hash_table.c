@@ -41,7 +41,7 @@ int hash_function2(struct hash_table* hash_table, char* key) {
    * to modify it to create an improved hash function: 
    */
 
-  return ( (int) key[0] ) % hash_table->size;
+  return ( (int) key[0] ) % hash_table->size; 
 }
 
 struct hash_table* hash_table_create(int array_size) {
@@ -184,15 +184,15 @@ int hash_table_collisions(struct hash_table* hash_table) {
    * with a bucket, it would not count as a collision. Two elements would count
    * as one collision, three elements would count as 2 collisions and so on. 
    */
-  int num_col = 0;
+  int nulls_found = 0;
 
   for (int i = 0; i < hash_table->size; i++){
-    if (hash_table->array[i] != NULL){
-      num_col += (sizeof(hash_table->array[i]) - 1);
+    if (hash_table->array[i] == NULL){
+      nulls_found++;
     }
   }
 
-  return num_col;
+  return hash_table->total - hash_table->size + nulls_found;
 }
 
 void display(struct hash_table* hash_table) {
